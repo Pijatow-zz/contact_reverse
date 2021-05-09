@@ -5,35 +5,35 @@ os.system('cls')
 # getting this file's folder path
 path = os.path.dirname(os.path.abspath(__file__))
 
-vcf_filepath = input('vcf file name(default: test.vcf): ')
-if vcf_filepath == '':
-    vcf_filepath = 'old.vcf'
-read_file = open(f'{path}\{vcf_filepath}')
+inp = input('vcf file name(default: test.vcf): ')
 
-
-new_file = f'{path}\\reversed.vcf'
-write_line = open(new_file, 'w')
+file_name = inp.split('.vcf')[0]
+vcf_file_name = inp
+if inp == '':
+    vcf_file_name = 'test.vcf'
+try :
+    read_file = open(f'{path}\\{vcf_file_name}')
+except:
+    print('file not found')
+    quit()
+new_file_name = f'{path}\\{file_name}_reversed.vcf'
+write_line = open(new_file_name, 'w')
 
 print('---------------------------------------')
 
 
 for line in read_file:
-    if line.startswith('FN:'):
-        parts = line.split(',')
-        suffix = ''
-        try:
-            suffix = str(',' + parts[1].rstrip('\n'))
-        except IndexError:
-            pass
-        thing = parts[0].rstrip('\n').split(':')
-        FN = thing[1]
-        reversed_FN = FN
-        if len(FN.split()) == 2:
-            splited = FN.split()
-            reversed_FN = str(splited[1] + ' ' + splited[0])
-        write_line.write(f'FN:{reversed_FN}{suffix}\n')
+    if line.startswith('N:'):
+        parts = line.split(';')
+        last_name = parts[0] = parts[0].lstrip('N:')
+        first_name = parts[1]
+        middle_name = parts[2]
+        prefix = parts[3]
+        suffix = parts[4] = parts[4].rstrip('\n')
+        reversed_ = f'N:{first_name};{last_name};{middle_name};{prefix};{suffix}\n'
+        write_line.write(reversed_)
     else:
-        write_line.write(f'{line}')
+        write_line.write(line)
 
 write_line.close()
 print('DONE!\nGood Luck :)')
