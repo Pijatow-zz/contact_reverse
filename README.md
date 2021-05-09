@@ -1,6 +1,6 @@
 # contact_reverse
 
-reverser.py replaces display name and lastname position with each other.
+The app reverser.py, replaces display name and last name with each other in a '.vcf' file
 
     The vcf file that you give the program should be named: 'old.vcf' and located in the same directory with reverser.py.
     Run the app.
