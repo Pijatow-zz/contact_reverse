@@ -36,3 +36,4 @@ for line in read_file:
         write_line.write(f'{line}')
 
 write_line.close()
+print('DONE!\nGood Luck :)')
